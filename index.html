@@ -1,0 +1,111 @@
+!DOCTYPE html
+html lang=fr
+head
+  meta charset=UTF-8
+  titleMots Croiséstitle
+  style
+    body {
+      font-family sans-serif;
+      padding 20px;
+      background #f4f4f4;
+    }
+    h1 {
+      text-align center;
+    }
+    .grid {
+      display grid;
+      grid-template-columns repeat(5, 40px);
+      grid-gap 4px;
+      justify-content center;
+      margin-bottom 20px;
+    }
+    .cell {
+      width 40px;
+      height 40px;
+      text-align center;
+      font-size 20px;
+      text-transform uppercase;
+    }
+    .celldisabled {
+      background-color #333;
+    }
+    .clues {
+      max-width 400px;
+      margin auto;
+    }
+    button {
+      display block;
+      margin 20px auto;
+      padding 10px 20px;
+    }
+    .correct {
+      background-color #c8e6c9;
+    }
+    .incorrect {
+      background-color #ffcdd2;
+    }
+  style
+head
+body
+  h1Mots Croisésh1
+
+  div class=grid id=griddiv
+
+  div class=clues
+    h3Indices h3
+    ul
+      li1. Horizontal - Fruit jaune (5 lettres)li
+      li2. Vertical - Animal qui aboie (3 lettres)li
+    ul
+  div
+
+  button onclick=checkAnswers()Vérifierbutton
+
+  script
+    const solution = [
+      ['B', 'A', 'N', 'A', 'N'],
+      ['', '', '', '', 'A'],
+      ['', '', '', '', 'R'],
+      ['', '', '', '', 'D'],
+      ['', '', '', '', 'S']
+    ];
+
+    const grid = document.getElementById('grid');
+
+    for (let i = 0; i  5; i++) {
+      for (let j = 0; j  5; j++) {
+        const input = document.createElement('input');
+        input.maxLength = 1;
+        input.className = 'cell';
+
+        if (solution[i][j] === '') {
+          input.disabled = true;
+        } else {
+          input.dataset.row = i;
+          input.dataset.col = j;
+        }
+        grid.appendChild(input);
+      }
+    }
+
+    function checkAnswers() {
+      const inputs = document.querySelectorAll('.cell');
+      inputs.forEach(input = {
+        const row = input.dataset.row;
+        const col = input.dataset.col;
+        if (row !== undefined && col !== undefined) {
+          const correctLetter = solution[row][col];
+          const userLetter = input.value.toUpperCase();
+          if (userLetter === correctLetter) {
+            input.classList.add('correct');
+            input.classList.remove('incorrect');
+          } else {
+            input.classList.add('incorrect');
+            input.classList.remove('correct');
+          }
+        }
+      });
+    }
+  script
+body
+html
