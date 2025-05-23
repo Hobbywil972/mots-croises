@@ -60,6 +60,7 @@
   </div>
 
   <button onclick="checkAnswers()">Vérifier</button>
+  <button onclick="resetGame()">Réinitialiser</button>
 
   <script>
     const solution = [
@@ -103,6 +104,18 @@
             input.classList.add('incorrect');
             input.classList.remove('correct');
           }
+        }
+      });
+    }
+
+    function resetGame() {
+      const inputs = document.querySelectorAll('.cell');
+      inputs.forEach(input => {
+        // Only clear inputs that are not disabled (i.e., part of the puzzle)
+        if (!input.disabled) {
+          input.value = '';
+          input.classList.remove('correct');
+          input.classList.remove('incorrect');
         }
       });
     }
